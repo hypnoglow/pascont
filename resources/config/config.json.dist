@@ -1,0 +1,21 @@
+{
+  "socket": {
+    "host": "",
+    "port": "9090"
+  },
+  "database": {
+    "driver_name": "postgres",
+    "user": "postgres",
+    "password": "123123",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "database_name": "pascont",
+    "connection_params": {
+      "connect_timeout": ["1"],
+      "sslmode": ["disable"]
+    }
+  },
+  "session": {
+    "secret_key": "472D4B6150645367566B597033733676"
+  }
+}

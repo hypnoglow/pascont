@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  pascont-app:
+    container_name: pascont-app
+    build: ./
+    image: hypnoglow/pascont:latest
+    volumes:
+      - ./resources/config/config_docker.json:/etc/pascont.json
+    ports:
+      - 9090:9090
+    environment:
+      PASCONT_CONFIG_PATH: /etc/pascont.json
+    networks:
+      - global
+
+  pascont-postgres:
+    container_name: pascont-postgres
+    image: postgres:9.6-alpine
+    volumes:
+      - ~/data/pascont/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 123123
+    networks:
+      - global
+
+networks:
+  global:
+    driver: bridge
