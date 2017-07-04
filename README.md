@@ -1,7 +1,10 @@
 # pascont
 
 [![Build Status](https://travis-ci.org/hypnoglow/pascont.svg?branch=master)](https://travis-ci.org/hypnoglow/pascont)
-[![Coverage Status](https://coveralls.io/repos/github/hypnoglow/pascont/badge.svg)](https://coveralls.io/github/hypnoglow/pascont)
+[![Coverage Status](https://coveralls.io/repos/github/hypnoglow/pascont/badge.svg?branch=master)](https://coveralls.io/github/hypnoglow/pascont?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/hypnoglow/pascont)](https://goreportcard.com/report/github.com/hypnoglow/pascont)
+[![codebeat badge](https://codebeat.co/badges/8cf5adbc-fc6b-40ce-8534-a4270a25ee60)](https://codebeat.co/projects/github-com-hypnoglow-pascont-master)
+
 
 Simple passport for an application or a service. It handles accounting and sessioning.
 
