@@ -147,4 +147,4 @@ Technical:
 
 ## License
 
-MIT.
+[Apache 2.0](https://github.com/hypnoglow/pascont/blob/master/LICENSE)
