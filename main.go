@@ -57,7 +57,6 @@ func main() {
 	hmacNotary := notary.NewHMACNotary()
 	base64Packer := packer.NewBase64Packer(session.SessionIDLength + session.SessionExpiresAtLength)
 	bcryptHasher := hasher.NewBcryptHasher(bcrypt.DefaultCost)
-	uuidv4 := identity.NewUUIDV4()
 
 	// Controllers.
 	accs := accounts.NewRestController(
@@ -73,7 +72,7 @@ func main() {
 		hmacNotary,
 		base64Packer,
 		bcryptHasher,
-		uuidv4,
+		identity.NewUUIDV4,
 		sessions.Options{
 			SessionSecretKey: sessionSecretKey,
 		},

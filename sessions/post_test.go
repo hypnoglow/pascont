@@ -15,7 +15,6 @@ import (
 
 	"github.com/hypnoglow/pascont/account"
 	"github.com/hypnoglow/pascont/hasher"
-	"github.com/hypnoglow/pascont/identity"
 	"github.com/hypnoglow/pascont/kit/form"
 	"github.com/hypnoglow/pascont/notary"
 	"github.com/hypnoglow/pascont/packer"
@@ -80,6 +79,9 @@ func TestPostSessionForm_Validate(t *testing.T) {
 func TestRestController_PostSessions(t *testing.T) {
 	now := time.Now().UTC().Truncate(time.Second)
 	fakeLogger := log.New(ioutil.Discard, "", log.LstdFlags)
+	uuidProducer := func() string {
+		return "12345678-90ab-cdef-0123-4567890abcde"
+	}
 
 	cases := []struct {
 		caseName          string
@@ -88,7 +90,6 @@ func TestRestController_PostSessions(t *testing.T) {
 		notary            notary.Notary
 		packer            packer.Packer
 		hasher            hasher.Hasher
-		idf               identity.Identificatory
 		reqBody           io.Reader
 		expectedCode      int
 		expectedHeaderMap http.Header
@@ -228,13 +229,6 @@ func TestRestController_PostSessions(t *testing.T) {
 					},
 				},
 			),
-			idf: identity.NewFakeIdentificatory(
-				[]identity.FakeNewUUIDResult{
-					{
-						UUID: "12345678-90ab-cdef-0123-4567890abcde",
-					},
-				},
-			),
 			reqBody: bytes.NewBufferString(`{
 				"name":"email@email.com",
 				"password":"password"
@@ -291,13 +285,6 @@ func TestRestController_PostSessions(t *testing.T) {
 				[]hasher.FakeCompareHashWithPasswordResult{
 					{
 						Error: nil,
-					},
-				},
-			),
-			idf: identity.NewFakeIdentificatory(
-				[]identity.FakeNewUUIDResult{
-					{
-						UUID: "12345678-90ab-cdef-0123-4567890abcde",
 					},
 				},
 			),
@@ -359,13 +346,6 @@ func TestRestController_PostSessions(t *testing.T) {
 					},
 				},
 			),
-			idf: identity.NewFakeIdentificatory(
-				[]identity.FakeNewUUIDResult{
-					{
-						UUID: "12345678-90ab-cdef-0123-4567890abcde",
-					},
-				},
-			),
 			reqBody: bytes.NewBufferString(
 				`{"name":"email@email.com","password":"password"}`,
 			),
@@ -399,7 +379,7 @@ func TestRestController_PostSessions(t *testing.T) {
 			c.notary,
 			c.packer,
 			c.hasher,
-			c.idf,
+			uuidProducer,
 			Options{},
 		)
 		w := httptest.NewRecorder()

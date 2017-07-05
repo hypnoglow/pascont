@@ -38,7 +38,7 @@ func (c RestController) PostSessions(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	sess := session.CreateSession(c.identificatory.NewUUID, acc.ID, sessionDefaultDuration)
+	sess := session.CreateSession(c.uuidProducer, acc.ID, sessionDefaultDuration)
 	if err := c.sessionRepo.Save(*sess); err != nil {
 		c.logger.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
