@@ -131,19 +131,15 @@ func TestSession_ResetExpiresAt(t *testing.T) {
 
 func TestCreateSession(t *testing.T) {
 	cases := []struct {
-		idf       identity.Identificatory
-		accountID int64
-		duration  time.Duration
-		expected  *Session
+		uuidProducer identity.UUIDProducer
+		accountID    int64
+		duration     time.Duration
+		expected     *Session
 	}{
 		{
-			idf: identity.NewFakeIdentificatory(
-				[]identity.FakeNewUUIDResult{
-					{
-						UUID: "12345678-90ab-cdef-0123-4567890abcde",
-					},
-				},
-			),
+			uuidProducer: func() string {
+				return "12345678-90ab-cdef-0123-4567890abcde"
+			},
 			accountID: 123,
 			duration:  time.Second * 30,
 			expected: &Session{
@@ -156,7 +152,7 @@ func TestCreateSession(t *testing.T) {
 	}
 
 	for i, c := range cases {
-		actual := CreateSession(c.idf.NewUUID, c.accountID, c.duration)
+		actual := CreateSession(c.uuidProducer, c.accountID, c.duration)
 
 		if actual.ID != c.expected.ID {
 			t.Errorf(

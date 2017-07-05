@@ -18,14 +18,14 @@ const (
 
 // RestController is a REST controller for sessions.
 type RestController struct {
-	logger         *log.Logger
-	accountRepo    account.Repository
-	sessionRepo    session.Repository
-	notary         notary.Notary
-	packer         packer.Packer
-	hasher         hasher.Hasher
-	identificatory identity.Identificatory
-	options        Options
+	logger       *log.Logger
+	accountRepo  account.Repository
+	sessionRepo  session.Repository
+	notary       notary.Notary
+	packer       packer.Packer
+	hasher       hasher.Hasher
+	uuidProducer identity.UUIDProducer
+	options      Options
 }
 
 type Options struct {
@@ -40,7 +40,7 @@ func NewRestController(
 	n notary.Notary,
 	p packer.Packer,
 	h hasher.Hasher,
-	i identity.Identificatory,
+	u identity.UUIDProducer,
 	opts Options,
 ) RestController {
 	return RestController{
@@ -50,7 +50,7 @@ func NewRestController(
 		n,
 		p,
 		h,
-		i,
+		u,
 		opts,
 	}
 }

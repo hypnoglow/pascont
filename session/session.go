@@ -6,6 +6,7 @@ import (
 
 	"github.com/pkg/errors"
 
+	"github.com/hypnoglow/pascont/identity"
 	"github.com/hypnoglow/pascont/notary"
 	"github.com/hypnoglow/pascont/packer"
 )
@@ -60,13 +61,13 @@ func (s *Session) ResetExpiresAt(duration time.Duration) {
 }
 
 // CreateSession creates a new Session.
-// The Session ID is a UUID produced by uuid() func.
+// The Session ID is a UUID produced by identity.UUIDProducer func.
 // The CreatedAt is set to the current time.
 // The ExpiresAt is set to the current time plus duration.
-func CreateSession(uuid func() string, accountID int64, duration time.Duration) *Session {
+func CreateSession(uuidProducer identity.UUIDProducer, accountID int64, duration time.Duration) *Session {
 	now := time.Now()
 	return NewSession(
-		uuid(),
+		uuidProducer(),
 		accountID,
 		now,
 		now.Add(duration),

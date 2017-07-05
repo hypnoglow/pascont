@@ -7,7 +7,6 @@ import (
 
 	"github.com/hypnoglow/pascont/account"
 	"github.com/hypnoglow/pascont/hasher"
-	"github.com/hypnoglow/pascont/identity"
 	"github.com/hypnoglow/pascont/notary"
 	"github.com/hypnoglow/pascont/packer"
 	"github.com/hypnoglow/pascont/session"
@@ -21,7 +20,9 @@ func TestNewRestController(t *testing.T) {
 		notary.NewFakeNotary(nil, nil),
 		packer.NewFakePacker(nil, nil),
 		hasher.NewFakeHasher(nil, nil),
-		identity.NewFakeIdentificatory(nil),
+		func() string {
+			return "12345678-90ab-cdef-0123-4567890abcde"
+		},
 		Options{
 			SessionSecretKey: []byte("secret_key"),
 		},
