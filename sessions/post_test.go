@@ -96,7 +96,7 @@ func TestRestController_PostSessions(t *testing.T) {
 		expectedBody      *bytes.Buffer
 	}{
 		{
-			caseName: "Empty password should result in 404",
+			caseName: "Empty password should result in 400",
 			reqBody: bytes.NewBufferString(`{
 				"name":"email@email.com",
 				"password":""

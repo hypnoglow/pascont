@@ -101,7 +101,7 @@ func TestRestController_PostAccounts(t *testing.T) {
 		expectedBody      *bytes.Buffer
 	}{
 		{
-			caseName: "Too short account name should result in 404",
+			caseName: "Too short account name should result in 400",
 			accRepo:  account.NewFakeRepository(nil, nil, nil, nil),
 			reqBody: bytes.NewBufferString(`{
 				"name":"i",

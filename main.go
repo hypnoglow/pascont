@@ -87,6 +87,7 @@ func main() {
 		case http.MethodPost:
 			http.HandlerFunc(sess.PostSessions).ServeHTTP(w, req)
 		default:
+			w.Header().Add("Allow", http.MethodPost)
 			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
@@ -103,6 +104,8 @@ func main() {
 				tokenExtractor,
 			).ServeHTTP(w, req)
 		default:
+			w.Header().Add("Allow", http.MethodGet)
+			w.Header().Add("Allow", http.MethodPatch)
 			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
@@ -111,6 +114,7 @@ func main() {
 		case http.MethodPost:
 			http.HandlerFunc(accs.PostAccounts).ServeHTTP(w, req)
 		default:
+			w.Header().Add("Allow", http.MethodPost)
 			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
