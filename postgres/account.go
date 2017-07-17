@@ -70,7 +70,7 @@ func (r accountRepository) FindWithPasswordHashByUsername(name string) (*account
 
 	`, pq.QuoteIdentifier(accountTable))
 
-	var acc *account.Account
+	acc := &account.Account{}
 	var passwordHash []byte
 
 	err := r.db.QueryRow(q, name).Scan(
@@ -82,9 +82,11 @@ func (r accountRepository) FindWithPasswordHashByUsername(name string) (*account
 	)
 	if err == sql.ErrNoRows {
 		err = account.ErrNotFound
+	} else {
+		err = errors.Wrap(err, "Failed to find an account")
 	}
 
-	return acc, passwordHash, errors.Wrap(err, "Failed to find an account")
+	return acc, passwordHash, err
 }
 
 func (r accountRepository) Exists(name string) (bool, error) {

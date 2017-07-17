@@ -50,7 +50,7 @@ func (r sessionRepository) FindByID(id string) (*session.Session, error) {
 			id = $1
 	`, pq.QuoteIdentifier(sessionTable))
 
-	var s *session.Session
+	s := &session.Session{}
 	if err := r.db.QueryRow(q, id).Scan(
 		&s.ID,
 		&s.AccountID,
