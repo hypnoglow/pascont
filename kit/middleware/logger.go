@@ -36,6 +36,6 @@ func Logger(next http.Handler, logger *log.Logger) http.Handler {
 		next.ServeHTTP(rr, req)
 
 		//dur := time.Since(before).Nanoseconds() / 1e6
-		logger.Printf("%s %s : %d %d ms", req.Method, req.URL.String(), rr.Status(), time.Since(before))
+		logger.Printf("%s %s : %d %s", req.Method, req.URL.String(), rr.Status(), time.Since(before))
 	})
 }
