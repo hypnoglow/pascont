@@ -1,0 +1,8 @@
+.git/
+.idea/
+vendor/
+
+.dockerignore
+.gitignore
+.gitlab-ci.yml
+.travis.yml
