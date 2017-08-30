@@ -9,10 +9,8 @@ WORKDIR /go/src/github.com/hypnoglow/pascont
 
 COPY . .
 
-#RUN go-wrapper download
-RUN dep ensure -v
-RUN go test $(go list ./... | grep -v "/vendor/")
-RUN go-wrapper install
+RUN dep ensure -v \
+    && go-wrapper install
 
 RUN set -ex \
     && apk del .build-deps
